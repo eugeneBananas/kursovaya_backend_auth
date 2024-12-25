@@ -20,15 +20,12 @@ public class JwtTokenService {
         this.jwtUtil = jwtUtil;
     }
 
-    // Метод для удаления истекших токенов
     public void deleteExpiredTokens() {
-        // Получаем все токены из базы данных
         List<JwtToken> tokens = jwtTokenRepository.findAll();
 
-        // Для каждого токена проверяем его срок действия
         for (JwtToken token : tokens) {
             if (jwtUtil.isTokenExpired(token.getToken())) {
-                // Если токен истек, удаляем его
+                // если jwtтокен истек, удаляем его
                 jwtTokenRepository.delete(token);
             }
         }

@@ -25,42 +25,41 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable()) // Отключаем CSRF защиту (подходит для API)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Включаем CORS
+        http.csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Разрешаем OPTIONS запросы для всех
-                        .requestMatchers("/auth/register", "/auth/login", "/auth/validateToken", "/auth/getUserDetails").permitAll() // Разрешаем доступ к регистрации, логину и проверке токена без авторизации
-                        .anyRequest().authenticated() // Все остальные запросы требуют аутентификации
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login", "/auth/validateToken", "/auth/getUserDetails").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Добавляем JWT фильтр
 
-        return http.build(); // Метод для создания конфигурации
+        return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Разрешаем доступ с фронтенда и с другого сервера (http://localhost:8082)
-        configuration.addAllowedOrigin("http://localhost:5173"); // Разрешаем доступ с фронтенда
-        configuration.addAllowedOrigin("http://localhost:8082"); // Разрешаем доступ с другого сервера
 
-        configuration.addAllowedMethod("*"); // Разрешаем все HTTP методы (GET, POST, PUT, DELETE и т.д.)
-        configuration.addAllowedHeader("*"); // Разрешаем все заголовки
-        configuration.setAllowCredentials(true); // Разрешаем отправку куки и авторизационных заголовков
+        configuration.addAllowedOrigin("http://localhost:5173");
+        configuration.addAllowedOrigin("http://localhost:8082");
 
-        // Разрешаем заголовок для авторизации
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(true);
+
         configuration.addExposedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Применяем конфигурацию ко всем путям
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Используется Bcrypt для шифрования
+        return new BCryptPasswordEncoder();
     }
 }
 

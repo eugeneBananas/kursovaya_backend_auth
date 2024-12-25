@@ -11,9 +11,8 @@ public class JwtToken {
 
     private String token;
 
-    private Long userId;  // Или другой идентификатор пользователя, если нужно
+    private Long userId;
 
-    // Конструкторы, геттеры и сеттеры
     public JwtToken() {}
 
     public JwtToken(String token, Long userId) {

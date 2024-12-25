@@ -23,23 +23,21 @@ public class AuthenticationService {
     private JwtUtil jwtUtil;
 
     public String authenticate(String email, String password) {
-        AppUser user = userRepository.findByEmail(email) // Используем userRepository
+        AppUser user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Invalid credentials");
         }
 
-        // Генерация JWT токена
         return jwtUtil.generateToken(user);
     }
 
     public AppUser authenticateAndGetUser(String email, String password) {
-        // Аутентификация пользователя (например, через UserDetailsService)
         AppUser user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Проверка пароля
+
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }

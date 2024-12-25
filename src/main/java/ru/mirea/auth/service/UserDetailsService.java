@@ -27,17 +27,16 @@ public class UserDetailsService implements org.springframework.security.core.use
         // Поиск по email
         AppUser appUser = appUserRepository.findByEmail(username)
                 .orElseThrow(() -> {
-                    logger.error("User not found with email: {}", username);  // этот лог должен сработать
+                    logger.error("User not found with email: {}", username);
                     throw new UsernameNotFoundException("User not found");
                 });
 
         logger.info("Found user: {}", appUser.getEmail());
 
-        // Логируем детали пользователя, которые передаем в User.builder()
         return User.builder()
-                .username(appUser.getEmail()) // username = email
-                .password(appUser.getPassword()) // Пароль должен быть зашифрован
-                .roles(appUser.getRole())  // Роли
+                .username(appUser.getEmail())
+                .password(appUser.getPassword())
+                .roles(appUser.getRole())
                 .build();
     }
 

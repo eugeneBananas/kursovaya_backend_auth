@@ -5,7 +5,7 @@ import ru.mirea.auth.model.AppUser;
 public class RegisterRequest {
     public String email;
     public String password;
-    public String role; // Используем AppUser.Role, если это вложенное перечисление
+    public String role;
     public String fullName;
 
     public String getEmail() {

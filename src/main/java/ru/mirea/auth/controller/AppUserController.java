@@ -20,9 +20,9 @@ public class AppUserController {
     public ResponseEntity<List<AppUser>> getAllUsers() {
         List<AppUser> users = appUserService.findAllUsers();
         if (users.isEmpty()) {
-            return ResponseEntity.noContent().build(); // Возвращает 204 No Content, если пользователей нет
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(users); // Возвращает 200 OK и список пользователей
+        return ResponseEntity.ok(users);
     }
 
 

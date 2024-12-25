@@ -61,7 +61,7 @@ public class AuthController {
     @GetMapping("/validateUser")
     public ResponseEntity<String> validateUser(@RequestParam String email) {
         try {
-            userDetailsService.loadUserByUsername(email); // Пытаемся найти пользователя
+            userDetailsService.loadUserByUsername(email);
             return ResponseEntity.ok("User exists");
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");

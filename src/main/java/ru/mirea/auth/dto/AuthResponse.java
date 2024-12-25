@@ -2,14 +2,13 @@ package ru.mirea.auth.dto;
 
 public class AuthResponse {
 
-    private String token;           // JWT-токен
-    private String tokenType = "Bearer"; // Тип токена
-    private Long userId;            // ID пользователя
-    private String email;           // Email пользователя
-    private String role;            // Роль пользователя
+    private String token;
+    private String tokenType = "Bearer";
+    private Long userId;
+    private String email;
+    private String role;
     private String fullName;
 
-    // Конструктор
     public AuthResponse(String token, Long userId, String email, String role, String fullName) {
         this.token = token;
         this.userId = userId;
@@ -18,7 +17,6 @@ public class AuthResponse {
         this.role = role;
     }
 
-    // Геттеры и сеттеры
     public String getToken() {
         return token;
     }

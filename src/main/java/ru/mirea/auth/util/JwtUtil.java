@@ -38,15 +38,15 @@ public class JwtUtil {
                     .getSubject();
         } catch (Exception e) {
             logger.error("Error extracting username from token: {}", e.getMessage());
-            throw e;  // Пробрасываем исключение дальше
+            throw e;
         }
     }
 
     public boolean validateToken(String token) {
         try {
             logger.info("Validating token.");
-            final String username = extractUsername(token);  // Извлекаем имя пользователя из токена (при необходимости)
-            boolean isValid = !isTokenExpired(token);  // Проверяем, не истек ли срок действия токена
+            final String username = extractUsername(token);
+            boolean isValid = !isTokenExpired(token);
             logger.info("Token validation result: {}", isValid);
             return isValid;
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class JwtUtil {
             return expired;
         } catch (Exception e) {
             logger.error("Error checking token expiration: {}", e.getMessage());
-            return true; // Если произошла ошибка, считаем, что токен истек
+            return true;
         }
     }
 
