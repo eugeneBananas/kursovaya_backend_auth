@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile.auth
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  course-service:
+    build:
+      context: ./course
+      dockerfile: Dockerfile.course
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - auth-service
